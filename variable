@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+#Create a program that stores an integer in a variable 
+#and then prints the variable
+
+
+#the variable
+$integerVariable = 20;
+
+#Now print it
+print $integerVariable;
+
+#Tell the program to exit
+exit;

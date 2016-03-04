@@ -1,0 +1,18 @@
+#!usr/bin/perl -w
+
+#Store a DNA sequence, and print it, first in lower-case and then in upper-case
+
+#create a variable for the DNA sequence
+$seq = 'ACGgTaCT';
+
+#perform the lower and upper casing on the sequence 
+#and store in variables
+$upperCase = uc $seq;
+$lowerCase = lc $seq;
+
+#print the variable
+print $upperCase;
+print $lowerCase;
+
+#exit the program
+exit;
