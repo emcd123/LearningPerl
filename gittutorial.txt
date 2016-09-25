@@ -1,1 +1,24 @@
-https://github.com/GarageGames/Torque2D/wiki/Cloning-the-repo-and-working-with-Git
+configuring git with your github account
+
+git config --global user.name "Your Name here"
+git config --global user.email "your_email@domainname.com"
+
+
+clone a online repo to local disk,into working directory
+
+git clone repo_URL 
+
+
+add and commit files
+git add filename
+or
+git add. (adds everything)
+
+git commit -m "Some message"
+
+git status
+
+git push origin master
+
+Pull in updates of master branch in online repo
+git pull
