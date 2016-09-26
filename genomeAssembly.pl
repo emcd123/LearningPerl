@@ -13,6 +13,7 @@
 #  }
 #}
 #Folded code,I'm not currently using it but I dont want to delete
+
 @kmers =();
 $kmerRef = \@kmers;
 
@@ -34,13 +35,24 @@ use List::MoreUtils qw(uniq);
 
 my @uniquekmers = uniq(@kmers);
 
-print join("\n",@uniquekmers),"\n";
+#print join("\n",@uniquekmers),"\n";
 
+@eulerCycle = ();
+$eulerCycleRef = \@eulerCycle;
 
-
-
-
-
+foreach $variable (@uniquekmers){
+  foreach $secondVariable (@uniquekmers){
+       unless ($variable != $secondVariable) {
+       }
+       # body...
+       $suffix = substr($variable,4,2);
+       $prefix = substr($secondVariable,0,2);
+       if($suffix =$prefix){
+         push $eulerCycleRef, $secondVariable;
+       }
+  }
+}
+print join("\n",@eulerCycle),"\n";
 
 
 #for( $i=0; $i < scalar(@seqReads); $i++){
