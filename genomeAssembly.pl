@@ -3,38 +3,38 @@
 
 @seqReads = ("CATC","TCAT","CAGG","AGGT","AGGT","TCAT","GGTC","CATC","ATCA","GTCA","TCAG","ATCA");
 
-$vertices = '';
-@vertices = ();
+#$vertices = '';
+#@vertices = ();
 
-foreach $variable (@seqReads){
-  foreach $insideVariable ($variable){
-    $vertex = $insideVariable;
-    $vertices .= $vertex;
-  }
-}
-
-#$counter = 0;
-#while($counter<3){
-#  foreach $i ($vertices){
-#    push @vertices, $i;
-#    $counter = ($counter+1) % 3;
-#    unless ($i ) {
-      # body...
-#    }
-#
+#foreach $variable (@seqReads){
+#  foreach $insideVariable ($variable){
+#    $vertex = $insideVariable;
+#    $vertices .= $vertex;
 #  }
 #}
+#Folded code,I'm not currently using it but I dont want to delete
 @kmers =();
 $kmerRef = \@kmers;
+
 foreach $entry (@seqReads){
   $str = substr($entry,0,3);
   push ($kmerRef, $str);
+}
 
+foreach $entry (@seqReads){
+  $reverseStr = substr($entry,4,3);
   $reverseStr = substr($entry,4,3);
   push ($kmerRef, $reverseStr);
 }
+#print scalar @kmers;
+#print join("\n",@kmers),"\n";
 
-print @kmers;
+
+use List::MoreUtils qw(uniq);
+
+my @uniquekmers = uniq(@kmers);
+
+print join("\n",@uniquekmers),"\n";
 
 
 
@@ -54,5 +54,5 @@ print @kmers;
 #}
 
 #print $vertices;
-
+#More folded unused code that might be hepful later
 exit;
