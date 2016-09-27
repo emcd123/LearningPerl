@@ -47,7 +47,7 @@ foreach $variable (@uniquekmers){
        # body...
        $suffix = substr($variable,4,2);
        $prefix = substr($secondVariable,0,2);
-       if($suffix =$prefix){
+       if($suffix = $prefix){
          push $eulerCycleRef, $secondVariable;
        }
   }
