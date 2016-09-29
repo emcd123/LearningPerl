@@ -40,7 +40,7 @@ foreach $i (@uniquekmers){
 }
 #print join("\n",keys %VERTICES,\"n");
 
-foreach $key_variable ($VERTICES){#loop through each vertex key in hash
+foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
   @tempVertexConnections = ();#temporary list of edges to push to hash value
   $suffix = substr($key_variable,1,2);
   foreach $list_variable (@uniquekmers){#loop through vertices
@@ -53,7 +53,7 @@ foreach $key_variable ($VERTICES){#loop through each vertex key in hash
        }
   }
 }
-
+#print join("\n",values %VERTICES,\"n");
 
 #print join("\n",@uniquekmers),"\n";
 sub EulerPath {
