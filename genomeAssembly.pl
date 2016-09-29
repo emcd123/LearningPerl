@@ -23,8 +23,8 @@ foreach $entry (@seqReads){
 }
 
 foreach $entry (@seqReads){
-  $reverseStr = substr($entry,4,3);
-  $reverseStr = substr($entry,4,3);
+  $reverseStr = substr($entry,1,3);
+  $reverseStr = substr($entry,1,3);
   push ($kmerRef, $reverseStr);
 }
 #print scalar @kmers;
@@ -32,27 +32,37 @@ foreach $entry (@seqReads){
 
 
 use List::MoreUtils qw(uniq);
-
 my @uniquekmers = uniq(@kmers);
 
-#print join("\n",@uniquekmers),"\n";
+my %VERTICES;#empty hash ,fill with arrays next
+foreach $i (@uniquekmers){
+  $VERTICES{$i} = ();
+}
+#print join("\n",keys %VERTICES,\"n");
 
-@eulerCycle = ();
-$eulerCycleRef = \@eulerCycle;
-
-foreach $variable (@uniquekmers){
-  foreach $secondVariable (@uniquekmers){
-       unless ($variable != $secondVariable) {
+foreach $key_variable ($VERTICES){#loop through each vertex key in hash
+  @tempVertexConnections = ();#temporary list of edges to push to hash value
+  $suffix = substr($key_variable,1,2);
+  foreach $list_variable (@uniquekmers){#loop through vertices
+       unless ($key_variable != $list_variable) {
        }
-       # body...
-       $suffix = substr($variable,4,2);
-       $prefix = substr($secondVariable,0,2);
+     # body...
+       $prefix = substr($list_variable,0,2);
        if($suffix = $prefix){
-         push $eulerCycleRef, $secondVariable;
+         push @tempVertexConnections, $secondVariable;
        }
   }
 }
-print join("\n",@eulerCycle),"\n";
+
+
+#print join("\n",@uniquekmers),"\n";
+sub EulerPath {
+  @eulerCycle = ();
+  $eulerCycleRef = \@eulerCycle;
+}
+
+#my @eulerCycle = uniq(@eulerCycle);
+#print join("\n",@eulerCycle),"\n";
 
 
 #for( $i=0; $i < scalar(@seqReads); $i++){
