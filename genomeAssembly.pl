@@ -57,7 +57,7 @@ foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
      # body...
        my $prefix = substr($list_variable,0,2);
        print $prefix;
-       if($suffix = $prefix){
+       if($suffix eq $prefix){
          push $tempVertexConnectionsRef, $list_variable;
        }
   }
