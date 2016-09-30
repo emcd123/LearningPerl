@@ -8,8 +8,6 @@ use Data::Dumper;
 
 @seqReads = ("CATC","TCAT","CAGG","AGGT","AGGT","TCAT","GGTC","CATC","ATCA","GTCA","TCAG","ATCA");
 
-#$vertices = '';
-#@vertices = ();
 
 #foreach $variable (@seqReads){
 #  foreach $insideVariable ($variable){
@@ -52,9 +50,6 @@ foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
   my $suffix = substr($key_variable,1,2);
   #print $suffix;
   foreach $list_variable (@uniquekmers){#loop through vertices
-       #unless ($key_variable != $list_variable) {
-       #}
-     # body...
        my $prefix = substr($list_variable,0,2);
        print $prefix;
        if($suffix eq $prefix){
@@ -76,16 +71,4 @@ sub EulerPath {
 #print join("\n",@eulerCycle),"\n";
 
 
-#for( $i=0; $i < scalar(@seqReads); $i++){
-#  for( $j=0; $j < length($seqReads[$i]); $j++){
-#    $vertex = $seqReads[$i][$j] + $seqReads[$i][$j+1] + $seqReads[$i][$j+2];
-      #if ($vertex ~~ @vertices){
-    #push @vertices, $vertex;
-#    $vertices .= $vertex;
-      #}
-#  }
-#}
-
-#print $vertices;
-#More folded unused code that might be hepful later
 exit;
