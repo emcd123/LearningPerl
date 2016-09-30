@@ -52,18 +52,36 @@ foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
 }
 print Dumper(\%VERTICES);
 
+EulerPath(%VERTICES);
+
 sub EulerPath {
-	#some ideas to implement the euler trail
-	#Take a key from the hash, connect to element in the value of hash, add that edge to another hash
-	#Then delete edge from original hash
-	#Use value vertice from the hash as the key for the next iteration
-	#repeat until all values removed
-  @eulerCycle = ();
-  $eulerCycleRef = \@eulerCycle;
+
+  my $startvertex = "CAT";
+
+  my $location = $startvertex;
+  my @stack = ($startvertex);
+  my @euleCircuit;
+
+  while (@stack) {
+      if (defined $VERTICES{$location}[0]) {#if there is a key defined at that location go to the 0th position of the value array
+          push @stack, $location; #add to the array
+          $location = shift @{ $VERTICES{$location} };# move along to next vertice in that array
+      } else {
+          push @eulerCircuit, $location;# add that edge to the eulercircuit
+          $location = pop @stack; #take out original vertice ,so you just have the most recent one to repeat procedure with
+      }
+  }
+  my @reversedEulerCircuit = reverse @eulerCircuit;# perl works backs to front so to get normal order it has to be reversed
+  print "@reversedEulerCircuit\n";
+
+  foreach $i (@reversedEulerCircuit){
+    print substr($i, 2, 1);# find the last character each vertice of the euler trail in order to construct the genome
+  }
+
 }
 
-#my @eulerCycle = uniq(@eulerCycle);
-#print join("\n",@eulerCycle),"\n";
+
+
 
 
 exit;
