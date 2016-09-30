@@ -9,14 +9,6 @@ use Data::Dumper;
 @seqReads = ("CATC","TCAT","CAGG","AGGT","AGGT","TCAT","GGTC","CATC","ATCA","GTCA","TCAG","ATCA");
 
 
-#foreach $variable (@seqReads){
-#  foreach $insideVariable ($variable){
-#    $vertex = $insideVariable;
-#    $vertices .= $vertex;
-#  }
-#}
-#Folded code,I'm not currently using it but I dont want to delete
-
 @kmers =();
 $kmerRef = \@kmers;
 
@@ -51,7 +43,6 @@ foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
   #print $suffix;
   foreach $list_variable (@uniquekmers){#loop through vertices
        my $prefix = substr($list_variable,0,2);
-       print $prefix;
        if($suffix eq $prefix){
          push $tempVertexConnectionsRef, $list_variable;
        }
@@ -60,9 +51,13 @@ foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
   $VERTICES{$key_variable} = $tempVertexConnectionsRef;
 }
 print Dumper(\%VERTICES);
-#print join("\n",values %VERTICES,\"n");
 
 sub EulerPath {
+	#some ideas to implement the euler trail
+	#Take a key from the hash, connect to element in the value of hash, add that edge to another hash
+	#Then delete edge from original hash
+	#Use value vertice from the hash as the key for the next iteration
+	#repeat until all values removed
   @eulerCycle = ();
   $eulerCycleRef = \@eulerCycle;
 }
