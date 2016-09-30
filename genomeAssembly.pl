@@ -1,6 +1,11 @@
 #use strict;
 #use warnings;
 
+#modules used
+use List::MoreUtils qw(uniq);
+use Data::Dumper;
+
+
 @seqReads = ("CATC","TCAT","CAGG","AGGT","AGGT","TCAT","GGTC","CATC","ATCA","GTCA","TCAG","ATCA");
 
 #$vertices = '';
@@ -31,7 +36,6 @@ foreach $entry (@seqReads){
 #print join("\n",@kmers),"\n";
 
 
-use List::MoreUtils qw(uniq);
 my @uniquekmers = uniq(@kmers);
 
 my %VERTICES;#empty hash ,fill with arrays next
@@ -39,23 +43,30 @@ foreach $i (@uniquekmers){
   $VERTICES{$i} = ();
 }
 #print join("\n",keys %VERTICES,\"n");
+print Dumper(\%VERTICES);
+
 
 foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
-  @tempVertexConnections = ();#temporary list of edges to push to hash value
-  $suffix = substr($key_variable,1,2);
+  my @tempVertexConnections;#temporary list of edges to push to hash value(use "my @array;" to refrefsh it ineach iteration)
+  $tempVertexConnectionsRef = \@tempVertexConnections;
+  my $suffix = substr($key_variable,1,2);
+  #print $suffix;
   foreach $list_variable (@uniquekmers){#loop through vertices
-       unless ($key_variable != $list_variable) {
-       }
+       #unless ($key_variable != $list_variable) {
+       #}
      # body...
-       $prefix = substr($list_variable,0,2);
+       my $prefix = substr($list_variable,0,2);
+       print $prefix;
        if($suffix = $prefix){
-         push @tempVertexConnections, $secondVariable;
+         push $tempVertexConnectionsRef, $list_variable;
        }
   }
+  #Here I need to push the temp array into the value space for that key in hash
+  $VERTICES{$key_variable} = $tempVertexConnectionsRef;
 }
+print Dumper(\%VERTICES);
 #print join("\n",values %VERTICES,\"n");
 
-#print join("\n",@uniquekmers),"\n";
 sub EulerPath {
   @eulerCycle = ();
   $eulerCycleRef = \@eulerCycle;
