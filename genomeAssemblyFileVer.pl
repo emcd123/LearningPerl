@@ -7,42 +7,83 @@ use Data::Dumper;
 
 $reads = "reads.txt";
 #open(DATAFILE1, $file1);
-unless ( open(READS, $reads) ) {
+unless ( open($READS, $reads) ) {
 	print 'Error,cannot open file...';
 	exit;#exit program unless file is opened
 }
 @seqReads = ();
-while(<MYINPUTFILE>){
-  my $read = $_;
-  chomp $read;
-  push @seqReads, $reads;
-
+while(<$READS>){
+  #my $read = $_;
+  chomp;# $read;
+  push @seqReads, $_;
 }
-k = length $seqReads[0]
+close $READS;
+print @seqReads;
+#$k = length $seqReads[0];
 #@seqReads = ("CATC","TCAT","CAGG","AGGT","AGGT","TCAT","GGTC","CATC","ATCA","GTCA","TCAG","ATCA");
-sub createVertices {
 
 @kmers =();
 $kmerRef = \@kmers;
 
 foreach $entry (@seqReads){
-  $str = substr($entry,0,3);
+  $str = substr($entry,0,24);
   push ($kmerRef, $str);
 }
 
 foreach $entry (@seqReads){
-  $reverseStr = substr($entry,1,3);
-  $reverseStr = substr($entry,1,3);
+  $reverseStr = substr($entry,1,24);
+  #$reverseStr = substr($entry,1,k-1);
   push ($kmerRef, $reverseStr);
 }
 #print scalar @kmers;
 #print join("\n",@kmers),"\n";
-
-k = k - 1
-
 my @uniquekmers = uniq(@kmers);
+
+#$k = $k - 1;
+
+@kmers =();
+$kmerRef = \@kmers;
+
+foreach $entry (@seqReads){
+  $str = substr($entry,0,23);
+  push ($kmerRef, $str);
+}
+
+foreach $entry (@seqReads){
+  $reverseStr = substr($entry,1,23);
+  #$reverseStr = substr($entry,1,k-1);
+  push ($kmerRef, $reverseStr);
+}
+my @uniquekmers = uniq(@kmers);
+
+#print scalar @kmers;
+#print join("\n",@kmers),"\n";
+
+#$k = $k - 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #need to repeat line 24 - 41 twice, so wrap in subroutine
 }
+#for($i=0;$i<2;$i++){
+#	createVertices(@seqReads);
+#}
 
 my %VERTICES;#empty hash ,fill with arrays next
 foreach $i (@uniquekmers){
@@ -55,10 +96,10 @@ foreach $i (@uniquekmers){
 foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
   my @tempVertexConnections;#temporary list of edges to push to hash value(use "my @array;" to refrefsh it ineach iteration)
   $tempVertexConnectionsRef = \@tempVertexConnections;
-  my $suffix = substr($key_variable,1,2);
+  my $suffix = substr($key_variable,1,22);
   #print $suffix;
   foreach $list_variable (@uniquekmers){#loop through vertices
-       my $prefix = substr($list_variable,0,2);
+       my $prefix = substr($list_variable,0,22);
        if($suffix eq $prefix){
          push $tempVertexConnectionsRef, $list_variable;
        }
@@ -71,8 +112,7 @@ foreach $key_variable (keys %VERTICES){#loop through each vertex key in hash
 EulerPath(%VERTICES);
 
 sub EulerPath {
-
-  my $startvertex = "CAT";
+  my $startvertex = $uniquekmers[0];
 
   my $location = $startvertex;
   my @stack = ($startvertex);
@@ -91,12 +131,9 @@ sub EulerPath {
   print "@reversedEulerCircuit\n";
 
   foreach $i (@reversedEulerCircuit){
-    print substr($i, 2, 1);# find the last character each vertice of the euler trail in order to construct the genome
+    print substr($i, 22,1);# find the last character each vertice of the euler trail in order to construct the genome
   }
 }
-
-
-
-
+EulerPath(%VERTICES);
 
 exit;
