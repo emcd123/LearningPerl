@@ -5,7 +5,6 @@
 use List::MoreUtils qw(uniq);
 use Data::Dumper;
 
-
 @seqReads = ("CATC","TCAT","CAGG","AGGT","AGGT","TCAT","GGTC","CATC","ATCA","GTCA","TCAG","ATCA");
 
 
@@ -77,7 +76,6 @@ sub EulerPath {
   foreach $i (@reversedEulerCircuit){
     print substr($i, 2, 1);# find the last character each vertice of the euler trail in order to construct the genome
   }
-
 }
 
 
