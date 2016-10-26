@@ -1,5 +1,5 @@
-#use strict;
-#use warnings;
+use strict;
+use warnings;
 
 #modules used
 use List::MoreUtils qw(uniq);
