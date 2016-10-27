@@ -11,7 +11,6 @@ my @seq2 = ('A','A','G','T');
 my ($x, $y, $z) = (6, 4, 3);
 my @matrix = map [map [map 0, 1..$z], 1..$y], 1..$x;
 
-print Dumper \@matrix;
 
 
 my $d = 3; #gap opening penalty
@@ -25,17 +24,28 @@ my $IxRule = 0;
 my $IyRule = 0;
 my $MRule = 0;
 
-foreach $i (1..scalar @seq1){
-  foreach $j(1..scalar @seq2){
+foreach my $i (1..scalar @seq1){
+  foreach my $j (1..scalar @seq2){
     #evaluating the rules
-    my @Ix = ();
-    my @Iy = ();
-    my @M = ();
+    my @Ix = ($matrix[$i][$j-1][2] - $d, $matrix[$i][$j-1][0] - $e);
+    my @Iy = ($matrix[$i-1][$j][2] - $d, $matrix[$i-1][$j][1] - $e);
+    my @M = ($matrix[$i-1][$j-1][2] -1, $matrix[$i-1][$j-1][0] -1, $matrix[$i-1][$j-1][1] -1);
 
     #find the maxes of those categorys, then push them to @matrix
     my $maxIx = max @Ix;#etc.
     my $maxIy = max @Iy;#etc.
     my $Match = max @M;#etc.
 
+    $matrix[$i][$j][0] = $maxIx;
+    $matrix[$i][$j][1] = $maxIy;
+    $matrix[$i][$j][2] = $Match;
+
+    #my @max = ($maxIx,$maxIy,$Match);
+    #$score = max @max;
+    #for($k = 0; $k < scalar @max; $k++){
+    #  push , $max[$k];
+    #}
   }
 }
+print Dumper \@matrix;
+exit;
