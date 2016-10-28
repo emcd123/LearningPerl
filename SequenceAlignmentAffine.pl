@@ -24,12 +24,22 @@ my $IxRule = 0;
 my $IyRule = 0;
 my $MRule = 0;
 
-foreach my $i (1..scalar @seq1){
-  foreach my $j (1..scalar @seq2){
+foreach my $i (0..scalar @seq1){
+  foreach my $j (0..scalar @seq2){
     #evaluating the rules
     my @Ix = ($matrix[$i][$j-1][2] - $d, $matrix[$i][$j-1][0] - $e);
     my @Iy = ($matrix[$i-1][$j][2] - $d, $matrix[$i-1][$j][1] - $e);
     my @M = ($matrix[$i-1][$j-1][2] -1, $matrix[$i-1][$j-1][0] -1, $matrix[$i-1][$j-1][1] -1);
+
+    if($seq1[$i] eq $seq2[$j]){
+      my @M = ($matrix[$i-1][$j-1][2] - $sMatch, $matrix[$i-1][$j-1][0] - $sMatch, $matrix[$i-1][$j-1][1] - $sMatch);
+    }
+    if(1 != 1){#check if uncomplementary nucleotide pairings
+      my @M = ($matrix[$i-1][$j-1][2] - $sTransition, $matrix[$i-1][$j-1][0] - $sTransition, $matrix[$i-1][$j-1][1] -$sTransition);
+    }
+    if(1 != 1){#check if uncomplementary nucleotide pairings
+      my @M = ($matrix[$i-1][$j-1][2] - $sTransversion, $matrix[$i-1][$j-1][0] -$sTransversion, $matrix[$i-1][$j-1][1] - $sTransversion);
+    }
 
     #find the maxes of those categorys, then push them to @matrix
     my $maxIx = max @Ix;#etc.
@@ -48,4 +58,15 @@ foreach my $i (1..scalar @seq1){
   }
 }
 print Dumper \@matrix;
+
+sub optimalAlignmentProcedure{
+  #we need to go to last entry in matrix(n,n) and check its upward,left, and diagonal scores
+  #Choose best option,move to the cell(i,j) and repeat step 1 untill we are in matrix(0,0)
+  foreach my $i(scalar @seq1 .. 0){
+    foreach my $j(scalar @seq2 .. 0){
+      my $maxScore = max @scores = ($matrix[$i][$j][0],$matrix[$i][$j][1],$matrix[$i][$j][2]);
+      
+    }
+  }
+}
 exit;
