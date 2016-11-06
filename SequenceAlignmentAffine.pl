@@ -64,8 +64,8 @@ sub optimalAlignmentProcedure{
   #Choose best option,move to the cell(i,j) and repeat step 1 untill we are in matrix(0,0)
   foreach my $i(scalar @seq1 .. 0){
     foreach my $j(scalar @seq2 .. 0){
-      my $maxScore = max @scores = ($matrix[$i][$j][0],$matrix[$i][$j][1],$matrix[$i][$j][2]);
-      
+      #my $maxScore = max @scores = ($matrix[$i][$j][0],$matrix[$i][$j][1],$matrix[$i][$j][2]);
+
     }
   }
 }
