@@ -27,34 +27,43 @@ my $MRule = 0;
 foreach my $i (0..scalar @seq1){
   foreach my $j (0..scalar @seq2){
     #evaluating the rules
-    my @Ix = ($matrix[$i][$j-1][2] - $d, $matrix[$i][$j-1][0] - $e);
-    my @Iy = ($matrix[$i-1][$j][2] - $d, $matrix[$i-1][$j][1] - $e);
-    my @M = ($matrix[$i-1][$j-1][2] -1, $matrix[$i-1][$j-1][0] -1, $matrix[$i-1][$j-1][1] -1);
-
-    if($seq1[$i] eq $seq2[$j]){
-      my @M = ($matrix[$i-1][$j-1][2] - $sMatch, $matrix[$i-1][$j-1][0] - $sMatch, $matrix[$i-1][$j-1][1] - $sMatch);
+    if($i = 0 && $j = 0){
+      $matrix[$i][$j][0] = 0;
+      $matrix[$i][$j][1] = 0;
+      $matrix[$i][$j][2] = 0;
     }
-    if(1 != 1){#check if uncomplementary nucleotide pairings
-      my @M = ($matrix[$i-1][$j-1][2] - $sTransition, $matrix[$i-1][$j-1][0] - $sTransition, $matrix[$i-1][$j-1][1] -$sTransition);
+    else{
+      if exists $matrix[$i-1][$j-1]{
+        my @Ix = ($matrix[$i][$j-1][2] - $d, $matrix[$i][$j-1][0] - $e);
+        my @Iy = ($matrix[$i-1][$j][2] - $d, $matrix[$i-1][$j][1] - $e);
+        my @M = ($matrix[$i-1][$j-1][2] -1, $matrix[$i-1][$j-1][0] -1, $matrix[$i-1][$j-1][1] -1);
+
+        if($seq1[$i] eq $seq2[$j]){
+          my @M = ($matrix[$i-1][$j-1][2] - $sMatch, $matrix[$i-1][$j-1][0] - $sMatch, $matrix[$i-1][$j-1][1] - $sMatch);
+        }
+        if(1 != 1){#check if uncomplementary nucleotide pairings
+          my @M = ($matrix[$i-1][$j-1][2] - $sTransition, $matrix[$i-1][$j-1][0] - $sTransition, $matrix[$i-1][$j-1][1] -$sTransition);
+        }
+        if(1 != 1){#check if uncomplementary nucleotide pairings
+          my @M = ($matrix[$i-1][$j-1][2] - $sTransversion, $matrix[$i-1][$j-1][0] -$sTransversion, $matrix[$i-1][$j-1][1] - $sTransversion);
+        }
+
+        #find the maxes of those categorys, then push them to @matrix
+        my $maxIx = max @Ix;#etc.
+        my $maxIy = max @Iy;#etc.
+        my $Match = max @M;#etc.
+
+        $matrix[$i][$j][0] = $maxIx;
+        $matrix[$i][$j][1] = $maxIy;
+        $matrix[$i][$j][2] = $Match;
+
+      #my @max = ($maxIx,$maxIy,$Match);
+      #$score = max @max;
+      #for($k = 0; $k < scalar @max; $k++){
+      #  push , $max[$k];
+      #}
+      }
     }
-    if(1 != 1){#check if uncomplementary nucleotide pairings
-      my @M = ($matrix[$i-1][$j-1][2] - $sTransversion, $matrix[$i-1][$j-1][0] -$sTransversion, $matrix[$i-1][$j-1][1] - $sTransversion);
-    }
-
-    #find the maxes of those categorys, then push them to @matrix
-    my $maxIx = max @Ix;#etc.
-    my $maxIy = max @Iy;#etc.
-    my $Match = max @M;#etc.
-
-    $matrix[$i][$j][0] = $maxIx;
-    $matrix[$i][$j][1] = $maxIy;
-    $matrix[$i][$j][2] = $Match;
-
-    #my @max = ($maxIx,$maxIy,$Match);
-    #$score = max @max;
-    #for($k = 0; $k < scalar @max; $k++){
-    #  push , $max[$k];
-    #}
   }
 }
 print Dumper \@matrix;
